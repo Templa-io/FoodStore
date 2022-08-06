@@ -4,11 +4,15 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -40,7 +44,7 @@ fun TopBar(modifier: Modifier = Modifier) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = Modifier
+        modifier = modifier
             .padding(top = 24.dp, start = 16.dp, end = 16.dp, bottom = 16.dp)
             .fillMaxWidth()
     ) {
@@ -73,9 +77,54 @@ fun TopBar(modifier: Modifier = Modifier) {
     }
 }
 
+@Composable
+fun SearchButton(modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier
+            .clip(shape = RoundedCornerShape(6.dp))
+            .border(width = 2.dp, color = Color.Gray, shape = RoundedCornerShape(6.dp))
+            .fillMaxWidth()
+            .height(60.dp)
+            .background(color = Color.White)
+    ) {
+        Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            Icon(
+                Icons.Rounded.Search,
+                contentDescription = "Search",
+                tint = Color.Gray.copy(alpha = 0.4F),
+                modifier = Modifier.padding(start = 8.dp)
+            )
+            TextField(
+                modifier = Modifier.fillMaxWidth(),
+                colors = TextFieldDefaults.textFieldColors(
+                    textColor = Color.Transparent,
+                    disabledTextColor = Color.Transparent,
+                    backgroundColor = Color.Transparent,
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                    disabledIndicatorColor = Color.Transparent
+                ),
+                value = "", onValueChange = {}, placeholder = {
+                    Text(
+                        text = "Find a better Restaurant", style = TextStyle(color = Color.Gray)
+                    )
+                })
+        }
+    }
+}
+
+@Preview
+@Composable
+fun SearchBarPreview() {
+    MaterialComponentsANdLayoutsTheme {
+        SearchButton()
+    }
+
+}
+
 @Preview(showBackground = true)
 @Composable
-fun TopBarPriview() {
+fun TopBarPreview() {
     MaterialComponentsANdLayoutsTheme {
         TopBar()
     }
